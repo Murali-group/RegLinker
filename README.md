@@ -108,7 +108,7 @@ not already received a rank.
 ## Dependencies
 
 This implementation of RegLinker is written in Python 3, and is
-designed to be used in conjunction with the NetworkX library, v.2.1.
+designed to be used in conjunction with the NetworkX library, v.2.4.
 
 ## Usage
 
