@@ -1,4 +1,3 @@
 coverage==5.1
 decorator==4.4.2
-FAdo==1.3.5.1
 networkx==2.4
