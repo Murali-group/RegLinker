@@ -13,28 +13,26 @@ The following files are likely to be of interest to users:
 - `RegLinkerIO.py`: contains utility functions for reading
   inputs from and writing outputs to disk.
 
-- `examples/network.tsv` and `examples/dfa.tsv`: contains examples of
-  graphs that the module RegLinkerIO can interface with. These are as
-  tab-separated edge lists of the form
-  `head<tab>tail<tab>label<tab>weight`. Note that the graph
-  representation of a DFA does not utilize the weight column.
+- `RegexToGraph.py`: a Python 2 utility (incompatible with the rest of
+   the Python files in this repository!) for transforming a regular
+   expression into a graph, and for writing that graph to disk.
 
-- `examples/net-nodes.tsv` and `examples/dfa-nodes.tsv`: each contains
-  a list of sources and targets. In the first, these correspond to
-  receptors and transcription factors in the protein interaction
-  network. In the second, these correspond to start/final states for
-  the DFA. These tab-separated files take the form `node<tab>type`,
-  where type is a user-specified designation as to whether the node is
-  a source or target. By default, the strings `source` and `target`
-  should be used.
+- `examples/toy/*`: contains toy examples of graphs that the module RegLinkerIO
+  can interface with. These are as tab-separated edge lists of the form
+  `head<tab>tail<tab>label<tab>weight`.  Note that the graph representation of
+  a DFA does not utilize the weight column.
 
-## Example
+- `examples/biological/*`: contains input files used in the RegLinker paper
+  for signaling pathway reconstruction (note: the example given is a
+  demonstration of the technique applied, not a full reproduction of the
+  pipeline used in the paper; for example, an additional re-weighting
+  procedure was applied in the paper).
 
-Suppose we have the following toy example network *G*, where an edge
-label of *p* indicates that an interaction is annotated to a given
-curated pathway, and a label of *x* indicates that an interaction is
-not. Here, we designate *s* as a receptor, and *t* as a transcription
-factor.
+## Toy Example
+
+Suppose we have the following toy example network *G*, where an edges
+are labeled with either *p* or *n*. We designate the ndoe *s* to serve
+as the network's source, and *t* to serve as its target.
 
 <img src="./network.svg">
 
@@ -79,17 +77,32 @@ H = rlio.read_graph(dfa_file, label_col=2)
 S_H, T_H = rlio.read_node_types(dfa_nodes_file)
 ```
 
+## RegexToGraph
+
+This module is intended to be run as a command-line utility. As a Python 2
+program, its dependencies are detailed separately in *requirements-regex.txt*.
+
+Example invocations:
+
+```bash
+# Produces a DFA matching the string "ppn"
+python RegexToGraph.py ppn two-ps-then-an-n
+
+# Produces a DFA matching a string that has three xs surrounded by
+# any number of ps
+python RegexToGraph.py "p*xp*xp*xp*" three-ns-any-ps
+```
+
 ### RegLinker
 
-The inputs to RegLinker are a set of sources, a set of targets, an
-edge-labeled protein interaction network, and the DFA coresponding to
-a regular language. RegLinker computes, for each edge in the
-interaction network, a shortest path from the set of sources to the
-set of targets through that edge, such that each path is *regular
-language constrained*: that is, the concatentation of the labels of
-the edges along the path forms a word in the specified regular
-language. This is achieved through finding paths in an
-appropriately-defined product of the interaction network and the DFA.  
+The inputs to RegLinker are a set of sources, a set of targets, an edge-labeled
+network, and the DFA coresponding to a regular language. RegLinker computes,
+for each edge in the interaction network, a shortest path from the set of
+sources to the set of targets through that edge, such that each path is
+*regular language constrained*: that is, the concatentation of the labels of
+the edges along the path forms a word in the specified regular language. This
+is achieved through finding paths in an appropriately-defined product of the
+interaction network and the DFA.  
 
 Definitions:
 - *G*: NetworkX DiGraph representing an interaction network
@@ -149,3 +162,8 @@ the following:
 The output consists of four lines, corresponding to the four edges
 through which we were able to find an *s-t* path in *G* conforming to
 our constraints. 
+
+## Biological Example
+
+For a demonstration of the algorithm's use in a biological context, please
+see `examples/biological/run.py`.
