@@ -1,0 +1,15 @@
+# Tail	Head	Label
+0	1	p
+0	2	x
+1	1	p
+1	2	x
+2	3	p
+2	4	x
+3	3	p
+3	4	x
+4	5	p
+4	6	x
+5	5	p
+5	6	x
+6	7	p
+7	7	p

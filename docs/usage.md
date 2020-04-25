@@ -19,7 +19,7 @@ The following files are likely to be of interest to users:
 
 - `examples/toy/*`: contains toy examples of graphs that the module RegLinkerIO
   can interface with. These are as tab-separated edge lists of the form
-  `head<tab>tail<tab>label<tab>weight`.  Note that the graph representation of
+  `head<tab>tail<tab>label<tab>weight`. Note that the graph representation of
   a DFA does not utilize the weight column.
 
 - `examples/biological/*`: contains input files used in the RegLinker paper
@@ -90,7 +90,7 @@ python RegexToGraph.py ppn two-ps-then-an-n
 
 # Produces a DFA matching a string that has three xs surrounded by
 # any number of ps
-python RegexToGraph.py "p*xp*xp*xp*" three-ns-any-ps
+python RegexToGraph.py "p*xp*xp*xp*" three-xs-any-ps
 ```
 
 ### RegLinker

@@ -56,7 +56,7 @@ def get_edge_label(index, labels):
 
 
 def write_graph_to_file(G, prefix):
-    with open(prefix + '-nodes.txt', 'w') as f:
+    with open(prefix + '-nodes.tsv', 'w') as f:
         
         # Write header
         f.write('# Node\t' + 'Type\n')
@@ -65,7 +65,7 @@ def write_graph_to_file(G, prefix):
         for v in G.nodes():
             f.write(str(v) + '\t' + G.node[v]['label'] + '\n')
 
-    with open(prefix + '-edges.txt', 'w') as f:
+    with open(prefix + '-edges.tsv', 'w') as f:
         # Write header
         f.write('# Tail\t' + 'Head\t' + 'Label\n')
         
