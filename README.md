@@ -108,18 +108,25 @@ not already received a rank.
 ## Dependencies
 
 This implementation of RegLinker is written in Python 3, and is
-designed to be used in conjunction with the NetworkX library, v.2.1.
+designed to be used in conjunction with the NetworkX library, v.2.4.
 
 ## Usage
 
 Please see [the documentation](./docs/usage.md) for examples of usage.
 
-## Reference, Citation, and Collaboration
+## Reference, Citation and Collaboration
 
-RegLinker is the subject of a to-be-published manuscript as a part of
-conference proceedings. In the interim, we ask that if you use
-RegLinker in your work, that you please reach out for information on
-best to cite RegLinker.
+If you use RegLinker in your research, please cite the following paper:
+
+<a href="https://doi.org/10.1093/bioinformatics/btz360"> Reconstructing signaling pathways using regular language constrained paths </a>.
+Mitchell J. Wagner, Aditya Pratapa, T. M. Murali. _Bioinformatics_, Volume 35,
+Issue 14, July 2019, Pages i624–i633
+
+RegLinker was the subject of the following Master's thesis:
+
+<a href="http://hdl.handle.net/10919/85044"> Reconstructing signaling pathways using regular language constrained paths </a>.
+Mitchell J. Wagner. Virginia Polytechnic Institute and State University,
+September 2018
 
 We encourage experimentation with RegLinker. Please don't hesitate to
 contact us if you would like to collaborate!

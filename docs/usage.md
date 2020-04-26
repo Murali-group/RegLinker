@@ -13,28 +13,53 @@ The following files are likely to be of interest to users:
 - `RegLinkerIO.py`: contains utility functions for reading
   inputs from and writing outputs to disk.
 
-- `examples/network.tsv` and `examples/dfa.tsv`: contains examples of
-  graphs that the module RegLinkerIO can interface with. These are as
-  tab-separated edge lists of the form
-  `head<tab>tail<tab>label<tab>weight`. Note that the graph
-  representation of a DFA does not utilize the weight column.
+- `RegexToGraph.py`: a Python 2 utility (incompatible with the rest of
+   the Python files in this repository!) for transforming a regular
+   expression into a graph, and for writing that graph to disk.
 
-- `examples/net-nodes.tsv` and `examples/dfa-nodes.tsv`: each contains
-  a list of sources and targets. In the first, these correspond to
-  receptors and transcription factors in the protein interaction
-  network. In the second, these correspond to start/final states for
-  the DFA. These tab-separated files take the form `node<tab>type`,
-  where type is a user-specified designation as to whether the node is
-  a source or target. By default, the strings `source` and `target`
-  should be used.
+- `run-signaling-pathway-example.py`: example demonstrating the use of
+  RegLinker to identify candidate interactions for inclusion in a signaling
+  pathway. Note that the example given is a demonstration of the technique
+  applied, not a full reproduction of the pipeline used in the published
+  manuscript; for example, an additional re-weighting procedure was applied in
+  the paper).
 
-## Example
+- `run-toy-example.py`: example (described in detail below) of 
+  the use of RegLinker on a small sample network and DFA.
 
-Suppose we have the following toy example network *G*, where an edge
-label of *p* indicates that an interaction is annotated to a given
-curated pathway, and a label of *x* indicates that an interaction is
-not. Here, we designate *s* as a receptor, and *t* as a transcription
-factor.
+- `input/toy/*`: contains toy examples of graphs that the module RegLinkerIO
+  can interface with. These are as tab-separated edge lists of the form
+  `head<tab>tail<tab>label<tab>weight`. Note that the graph representation of
+  a DFA does not utilize the weight column.
+
+- `input/signaling-pathway/*`: contains input files used in the RegLinker
+  paper for signaling pathway reconstruction (the signaling pathways are
+  derived from NetPath; the interactome is a directed human protein interactome
+  constructed from numerous protein-protein interaction and signaling
+  databases, including BioGrid, DIP, InnateDB, IntAct, MatrixDB, MINT, NetPath,
+  and PhosphoSitePlus.
+
+## RegexToGraph
+
+This module is intended to be run as a command-line utility. As a Python 2
+program, its dependencies are detailed separately in *requirements-regex.txt*.
+
+Example invocations:
+
+```bash
+# Produces a DFA matching the string "ppn"
+python RegexToGraph.py ppn two-ps-then-an-n
+
+# Produces a DFA matching a string that has three xs surrounded by
+# any number of ps
+python RegexToGraph.py "p*xp*xp*xp*" three-xs-any-ps
+```
+
+## Toy Example
+
+Suppose we have the following toy example network *G*, where an edges
+are labeled with either *p* or *n*. We designate the ndoe *s* to serve
+as the network's source, and *t* to serve as its target.
 
 <img src="./network.svg">
 
@@ -62,11 +87,11 @@ import RegLinker as rl
 import RegLinkerIO as rlio
 
 # Open file handles
-net_file = open('examples/network.tsv', 'r') 
-net_nodes_file = open('examples/net-nodes.tsv', 'r')
+net_file = open('input/toy/network.tsv', 'r') 
+net_nodes_file = open('input/toy/net-nodes.tsv', 'r')
 
-dfa_file = open('examples/dfa.tsv', 'r') 
-dfa_nodes_file = open('examples/dfa-nodes.tsv', 'r')
+dfa_file = open('input/toy/dfa.tsv', 'r') 
+dfa_nodes_file = open('input/toy/dfa-nodes.tsv', 'r')
 
 
 # Read networks in. Here, label_col and weight_col refer to the
@@ -81,15 +106,14 @@ S_H, T_H = rlio.read_node_types(dfa_nodes_file)
 
 ### RegLinker
 
-The inputs to RegLinker are a set of sources, a set of targets, an
-edge-labeled protein interaction network, and the DFA coresponding to
-a regular language. RegLinker computes, for each edge in the
-interaction network, a shortest path from the set of sources to the
-set of targets through that edge, such that each path is *regular
-language constrained*: that is, the concatentation of the labels of
-the edges along the path forms a word in the specified regular
-language. This is achieved through finding paths in an
-appropriately-defined product of the interaction network and the DFA.  
+The inputs to RegLinker are a set of sources, a set of targets, an edge-labeled
+network, and the DFA coresponding to a regular language. RegLinker computes,
+for each edge in the interaction network, a shortest path from the set of
+sources to the set of targets through that edge, such that each path is
+*regular language constrained*: that is, the concatentation of the labels of
+the edges along the path forms a word in the specified regular language. This
+is achieved through finding paths in an appropriately-defined product of the
+interaction network and the DFA.  
 
 Definitions:
 - *G*: NetworkX DiGraph representing an interaction network
@@ -111,7 +135,6 @@ follows:
 import RegLinker as rl
 
 results = rl.RegLinker(G, H, S_G, T_G, S_H, T_H, label="l", weight="w")
-
 ```
 
 This will create a generator that yields tuples of the form:
@@ -149,3 +172,8 @@ the following:
 The output consists of four lines, corresponding to the four edges
 through which we were able to find an *s-t* path in *G* conforming to
 our constraints. 
+
+## Identifying Signaling Pathway Interactions
+
+Please see `run-signaling-pathway-example.py` for a demonstration
+of the use of RegLinker in its motivating biological context.
