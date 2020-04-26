@@ -23,15 +23,20 @@ import RegLinkerIO as rlio
 
 def main():
     # Interactome (G)
-    interactome_file = open('input/interactome.tsv', 'r')
+    interactome_file = open('input/signaling-pathway/interactome.tsv', 'r')
 
     # Pathway of interest (used for G's edge labels and sources/targets)
-    pathway_edges_file = open('input/pathways/Wnt-edges.txt', 'r')
-    pathway_nodes_file = open('input/pathways/Wnt-nodes.txt', 'r')
+    pathway_edges_file = \
+        open('input/signaling-pathway/pathways/Wnt-edges.txt', 'r')
+
+    pathway_nodes_file = \
+        open('input/signaling-pathway/pathways/Wnt-nodes.txt', 'r')
 
     # Regular expression of interest (H)
-    dfa_edges_file = open('input/three-xs-edges.tsv', 'r')
-    dfa_nodes_file = open('input/three-xs-nodes.tsv', 'r')
+    dfa_edges_file = \
+        open('input/signaling-pathway/dfa-three-xs-edges.tsv', 'r')
+    dfa_nodes_file = \
+        open('input/signaling-pathway/dfa-three-xs-nodes.tsv', 'r')
 
     # Parse the interactome 
     # Note: additional re-weighting (using random walks) was performed in the

@@ -17,16 +17,39 @@ The following files are likely to be of interest to users:
    the Python files in this repository!) for transforming a regular
    expression into a graph, and for writing that graph to disk.
 
-- `examples/toy/*`: contains toy examples of graphs that the module RegLinkerIO
+- `run-signaling-pathway-example.py`: example demonstrating the use of
+  RegLinker to identify candidate interactions for inclusion in a signaling
+  pathway. Note that the example given is a demonstration of the technique
+  applied, not a full reproduction of the pipeline used in the published
+  manuscript; for example, an additional re-weighting procedure was applied in
+  the paper).
+
+- `run-toy-example.py`: example (described in detail below) of 
+  the use of RegLinker on a small sample network and DFA.
+
+- `input/toy/*`: contains toy examples of graphs that the module RegLinkerIO
   can interface with. These are as tab-separated edge lists of the form
   `head<tab>tail<tab>label<tab>weight`. Note that the graph representation of
   a DFA does not utilize the weight column.
 
-- `examples/biological/*`: contains input files used in the RegLinker paper
-  for signaling pathway reconstruction (note: the example given is a
-  demonstration of the technique applied, not a full reproduction of the
-  pipeline used in the paper; for example, an additional re-weighting
-  procedure was applied in the paper).
+- `input/signaling-pathway/*`: contains input files used in the RegLinker
+  paper for signaling pathway reconstruction 
+
+## RegexToGraph
+
+This module is intended to be run as a command-line utility. As a Python 2
+program, its dependencies are detailed separately in *requirements-regex.txt*.
+
+Example invocations:
+
+```bash
+# Produces a DFA matching the string "ppn"
+python RegexToGraph.py ppn two-ps-then-an-n
+
+# Produces a DFA matching a string that has three xs surrounded by
+# any number of ps
+python RegexToGraph.py "p*xp*xp*xp*" three-xs-any-ps
+```
 
 ## Toy Example
 
@@ -60,11 +83,11 @@ import RegLinker as rl
 import RegLinkerIO as rlio
 
 # Open file handles
-net_file = open('examples/network.tsv', 'r') 
-net_nodes_file = open('examples/net-nodes.tsv', 'r')
+net_file = open('input/toy/network.tsv', 'r') 
+net_nodes_file = open('input/toy/net-nodes.tsv', 'r')
 
-dfa_file = open('examples/dfa.tsv', 'r') 
-dfa_nodes_file = open('examples/dfa-nodes.tsv', 'r')
+dfa_file = open('input/toy/dfa.tsv', 'r') 
+dfa_nodes_file = open('input/toy/dfa-nodes.tsv', 'r')
 
 
 # Read networks in. Here, label_col and weight_col refer to the
@@ -75,22 +98,6 @@ S_G, T_G = rlio.read_node_types(net_nodes_file)
 
 H = rlio.read_graph(dfa_file, label_col=2)
 S_H, T_H = rlio.read_node_types(dfa_nodes_file)
-```
-
-## RegexToGraph
-
-This module is intended to be run as a command-line utility. As a Python 2
-program, its dependencies are detailed separately in *requirements-regex.txt*.
-
-Example invocations:
-
-```bash
-# Produces a DFA matching the string "ppn"
-python RegexToGraph.py ppn two-ps-then-an-n
-
-# Produces a DFA matching a string that has three xs surrounded by
-# any number of ps
-python RegexToGraph.py "p*xp*xp*xp*" three-xs-any-ps
 ```
 
 ### RegLinker
@@ -124,7 +131,6 @@ follows:
 import RegLinker as rl
 
 results = rl.RegLinker(G, H, S_G, T_G, S_H, T_H, label="l", weight="w")
-
 ```
 
 This will create a generator that yields tuples of the form:
@@ -163,7 +169,7 @@ The output consists of four lines, corresponding to the four edges
 through which we were able to find an *s-t* path in *G* conforming to
 our constraints. 
 
-## Biological Example
+## Identifying Signaling Pathway Interactions
 
-For a demonstration of the algorithm's use in a biological context, please
-see `examples/biological/run.py`.
+Please see `run-signaling-pathway-example.py` for a demonstration
+of the use of RegLinker in its motivating biological context.

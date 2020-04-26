@@ -114,12 +114,12 @@ designed to be used in conjunction with the NetworkX library, v.2.4.
 
 Please see [the documentation](./docs/usage.md) for examples of usage.
 
-## Reference, Citation, and Collaboration
+## Reference, Citation and Collaboration
 
-RegLinker is the subject of a to-be-published manuscript as a part of
-conference proceedings. In the interim, we ask that if you use
-RegLinker in your work, that you please reach out for information on
-best to cite RegLinker.
+RegLinker is the subject of a Master's thesis
+(http://hdl.handle.net/10919/85044) and a manuscript published as part of the
+conference proceedings of ISMB/ECCB 2019
+(https://doi.org/10.1093/bioinformatics/btz360).
 
 We encourage experimentation with RegLinker. Please don't hesitate to
 contact us if you would like to collaborate!
