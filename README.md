@@ -118,16 +118,15 @@ Please see [the documentation](./docs/usage.md) for examples of usage.
 
 If you use RegLinker in your research, please cite the following paper:
 
-Mitchell J. Wagner, Aditya Pratapa, T. M. Murali,
-[https://doi.org/10.1093/bioinformatics/btz360](Reconstructing signaling
-pathways using regular language constrained paths), Bioinformatics, Volume 35,
+[https://doi.org/10.1093/bioinformatics/btz360](Reconstructing signaling pathways using regular language constrained paths).
+Mitchell J. Wagner, Aditya Pratapa, T. M. Murali. _Bioinformatics_, Volume 35,
 Issue 14, July 2019, Pages i624–i633
 
 RegLinker was the subject of the following Master's thesis:
 
-Mitchell J. Wagner, [http://hdl.handle.net/10919/85044](Reconstructing
-signaling pathways using regular language constrained paths), Virginia
-Polytechnic Institute and State University, September 2018
+[http://hdl.handle.net/10919/85044](Reconstructing signaling pathways using regular language constrained paths).
+Mitchell J. Wagner. Virginia Polytechnic Institute and State University,
+September 2018
 
 We encourage experimentation with RegLinker. Please don't hesitate to
 contact us if you would like to collaborate!
