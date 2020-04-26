@@ -33,7 +33,11 @@ The following files are likely to be of interest to users:
   a DFA does not utilize the weight column.
 
 - `input/signaling-pathway/*`: contains input files used in the RegLinker
-  paper for signaling pathway reconstruction 
+  paper for signaling pathway reconstruction (the signaling pathways are
+  derived from NetPath; the interactome is a directed human protein interactome
+  constructed from numerous protein-protein interaction and signaling
+  databases, including BioGrid, DIP, InnateDB, IntAct, MatrixDB, MINT, NetPath,
+  and PhosphoSitePlus.
 
 ## RegexToGraph
 

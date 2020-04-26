@@ -27,10 +27,10 @@ def main():
 
     # Pathway of interest (used for G's edge labels and sources/targets)
     pathway_edges_file = \
-        open('input/signaling-pathway/pathways/Wnt-edges.txt', 'r')
+        open('input/signaling-pathway/netpath-pathways/Wnt-edges.txt', 'r')
 
     pathway_nodes_file = \
-        open('input/signaling-pathway/pathways/Wnt-nodes.txt', 'r')
+        open('input/signaling-pathway/netpath-pathways/Wnt-nodes.txt', 'r')
 
     # Regular expression of interest (H)
     dfa_edges_file = \
