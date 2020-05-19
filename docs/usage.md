@@ -22,7 +22,7 @@ The following files are likely to be of interest to users:
   pathway. Note that the example given is a demonstration of the technique
   applied, not a full reproduction of the pipeline used in the published
   manuscript; for example, an additional re-weighting procedure was applied in
-  the paper).
+  the paper.
 
 - `run-toy-example.py`: example (described in detail below) of 
   the use of RegLinker on a small sample network and DFA.
