@@ -65,7 +65,7 @@ vertices) are considered for addition to the signaling pathway.
 
 Informally, a regular language is a set of strings with the property
 that an algorithm that uses a fixed amount of memory can examine the
-lettersin the string sequentially to determine if it is a member of
+letters in the string sequentially to determine if it is a member of
 the language. For example, for the alphabet {*p*,*x*}, regular languages
 are expressive enough to represent strings with an even number of
 occurrences of *p* or strings where *p* and *x* strictly alternate an
